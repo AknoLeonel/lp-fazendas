@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Instrument_Sans } from "next/font/google";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import MobileCtaBar from "../components/MobileCtaBar";
 import Tracker from "../components/Tracker";
-import { GTM_ID, SITE } from "../lib/site";
+import ConsentGTM from "../components/ConsentGTM";
+import { SITE } from "../lib/site";
 
-const display = Fraunces({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d1a12",
+  themeColor: "#12291c",
 };
 
 export default function RootLayout({
@@ -51,8 +51,8 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
-      <body className="antialiased selection:bg-gold selection:text-forest-900">
-        {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
+      <body className="antialiased selection:bg-grao selection:text-cerrado-900">
+        <ConsentGTM />
         <Tracker />
         <Header />
         {children}

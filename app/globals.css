@@ -4,19 +4,20 @@
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 
-  --color-forest-950: #0d1a12;
-  --color-forest-900: #13211a;
-  --color-forest-800: #1b3225;
-  --color-forest-700: #1f5a3a;
-  --color-paper: #f5f0e6;
-  --color-paper-soft: #fffdf8;
-  --color-sand: #e9e0cd;
-  --color-line: #ddd3bd;
-  --color-gold: #c9a85c;
-  --color-gold-light: #e3cc8f;
-  --color-gold-dark: #7a6428;
-  --color-ink: #13211a;
-  --color-ink-soft: #44524a;
+  --color-cerrado-950: #0b1a11;
+  --color-cerrado-900: #12291c;
+  --color-cerrado-800: #1f3527;
+  --color-folha: #2f6b3a;
+  --color-folha-escura: #1f5a2e;
+  --color-algodao: #f7f4ec;
+  --color-algodao-claro: #fffefb;
+  --color-areia: #efe9d9;
+  --color-linha: #e2dccb;
+  --color-grao: #e3a72f;
+  --color-grao-claro: #f0c968;
+  --color-terra: #a94a25;
+  --color-tinta: #12291c;
+  --color-tinta-suave: #3f5146;
 }
 
 html {
@@ -24,8 +25,8 @@ html {
 }
 
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-algodao);
+  color: var(--color-tinta);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
@@ -46,6 +47,18 @@ details[open] .faq-plus {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-grao);
   outline-offset: 3px;
+}
+
+/* Faixa terra + lavoura usada como divisória de seções */
+.faixa-lavoura {
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-terra) 0 28px,
+    var(--color-algodao) 28px 36px,
+    var(--color-folha) 36px 70px,
+    var(--color-algodao) 70px 78px
+  );
 }

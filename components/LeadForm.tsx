@@ -7,9 +7,20 @@ import { whatsappLink } from "../lib/site";
 type Status = "idle" | "sending" | "done" | "error";
 
 const campo =
-  "min-h-12 w-full rounded-lg border border-line bg-white px-4 py-3 text-base font-normal text-ink placeholder:text-ink-soft/60";
+  "min-h-12 w-full rounded-lg border border-linha bg-white px-4 py-3 text-base font-normal text-tinta placeholder:text-tinta-suave/60";
 
-export default function LeadForm({ id = "contato" }: { id?: string }) {
+export default function LeadForm({
+  id = "contato",
+  aptidaoInicial = "Agricultura",
+  fazenda,
+  titulo = "Receba as fazendas do seu perfil",
+}: {
+  id?: string;
+  aptidaoInicial?: string;
+  /** Título da fazenda quando o formulário está numa página de fazenda. */
+  fazenda?: string;
+  titulo?: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [resumo, setResumo] = useState({ nome: "", aptidao: "" });
 
@@ -30,11 +41,12 @@ export default function LeadForm({ id = "contato" }: { id?: string }) {
           aptidao,
           whatsapp: form.get("whatsapp"),
           website: form.get("website"),
+          fazenda,
           atribuicao: getAttribution(),
         }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      trackEvent("generate_lead", { aptidao });
+      trackEvent("generate_lead", { aptidao, fazenda });
       setStatus("done");
     } catch {
       setStatus("error");
@@ -46,23 +58,25 @@ export default function LeadForm({ id = "contato" }: { id?: string }) {
       <div
         id={id}
         role="status"
-        className="flex scroll-mt-24 flex-col gap-4 rounded-xl bg-paper p-6 text-ink sm:p-8"
+        className="flex scroll-mt-24 flex-col gap-4 rounded-xl bg-algodao p-6 text-tinta sm:p-8"
       >
-        <h2 className="font-display text-2xl leading-tight sm:text-3xl">
+        <h2 className="font-display font-bold text-2xl leading-tight sm:text-3xl">
           Recebemos seu contato, {resumo.nome.split(" ")[0]}.
         </h2>
-        <p className="text-ink-soft">
+        <p className="text-tinta-suave">
           Um especialista vai falar com você em breve. Para adiantar, continue
           pelo WhatsApp:
         </p>
         <a
           href={whatsappLink(
-            `Olá, sou ${resumo.nome} e tenho interesse em fazendas para ${resumo.aptidao.toLowerCase()}.`,
+            fazenda
+            ? `Olá, sou ${resumo.nome} e tenho interesse na ${fazenda}.`
+            : `Olá, sou ${resumo.nome} e tenho interesse em fazendas para ${resumo.aptidao.toLowerCase()}.`,
           )}
           target="_blank"
           rel="noopener noreferrer"
           data-track="pos_formulario"
-          className="flex min-h-12 items-center justify-center rounded-full bg-forest-700 px-6 font-bold text-paper hover:bg-forest-800"
+          className="flex min-h-12 items-center justify-center rounded-lg bg-grao px-6 font-bold text-cerrado-900 hover:bg-grao-claro"
         >
           Continuar no WhatsApp
         </a>
@@ -74,15 +88,15 @@ export default function LeadForm({ id = "contato" }: { id?: string }) {
     <form
       id={id}
       onSubmit={onSubmit}
-      className="flex scroll-mt-24 flex-col gap-4 rounded-xl bg-paper p-6 text-ink shadow-2xl sm:p-8"
+      className="flex scroll-mt-24 flex-col gap-4 rounded-xl bg-algodao p-6 text-tinta shadow-2xl sm:p-8"
     >
-      <h2 className="font-display text-2xl leading-tight sm:text-3xl">
-        Receba as fazendas do seu perfil
+      <h2 className="font-display font-bold text-2xl leading-tight sm:text-3xl">
+        {titulo}
       </h2>
 
       <label className="flex flex-col gap-1.5 text-sm font-semibold">
         Aptidão
-        <select name="aptidao" className={campo} defaultValue="Agricultura">
+        <select name="aptidao" className={campo} defaultValue={aptidaoInicial}>
           <option>Agricultura</option>
           <option>Pecuária</option>
           <option>Compensação ambiental</option>
@@ -127,7 +141,7 @@ export default function LeadForm({ id = "contato" }: { id?: string }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="min-h-13 rounded-full bg-forest-700 px-6 text-base font-bold text-paper transition-colors hover:bg-forest-800 disabled:opacity-60 sm:rounded-lg"
+        className="min-h-13 rounded-lg bg-grao px-6 text-base font-bold text-cerrado-900 transition-colors hover:bg-grao-claro disabled:opacity-60 sm:rounded-lg"
       >
         {status === "sending" ? "Enviando..." : "Ver oportunidades"}
       </button>
@@ -147,7 +161,7 @@ export default function LeadForm({ id = "contato" }: { id?: string }) {
         </p>
       )}
 
-      <p className="text-[13px] leading-snug text-ink-soft">
+      <p className="text-[13px] leading-snug text-tinta-suave">
         Sigilo absoluto. Seus dados são usados só para este contato (LGPD).
       </p>
     </form>

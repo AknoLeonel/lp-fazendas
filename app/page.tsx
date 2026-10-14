@@ -1,34 +1,52 @@
 import Hero from "../components/Hero";
 import Confianca from "../components/Confianca";
 import Aptidoes from "../components/Aptidoes";
-import Consultoria from "../components/Consultoria";
+import Auditoria from "../components/Auditoria";
+import OesteBaiano from "../components/OesteBaiano";
 import Vitrine from "../components/Vitrine";
-import FaqAutoridade from "../components/FaqAutoridade";
+import Simulador from "../components/Simulador";
+import Faq, { FAQS } from "../components/Faq";
+import CtaFinal from "../components/CtaFinal";
 import Footer from "../components/Footer";
 import { SITE } from "../lib/site";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  name: SITE.fullName,
-  url: SITE.url,
-  telephone: `+${SITE.whatsapp}`,
-  email: SITE.email,
-  areaServed: "BR",
-  description:
-    "Venda de fazendas de alto potencial com documentação 100% regularizada para agricultura, pecuária e compensação ambiental.",
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: SITE.fullName,
+    url: SITE.url,
+    telephone: `+${SITE.whatsapp}`,
+    email: SITE.email,
+    areaServed: "BR",
+    address: { "@type": "PostalAddress", addressLocality: "Formosa do Rio Preto", addressRegion: "BA", addressCountry: "BR" },
+    description:
+      "Venda de fazendas de alto potencial com documentação 100% regularizada para agricultura, pecuária e compensação ambiental.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.pergunta,
+      acceptedAnswer: { "@type": "Answer", text: f.resposta },
+    })),
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <main className="flex flex-col bg-paper">
+      <main className="flex flex-col bg-algodao">
         <Hero />
         <Confianca />
         <Aptidoes />
-        <Consultoria />
+        <Auditoria />
+        <OesteBaiano />
         <Vitrine />
-        <FaqAutoridade />
+        <Simulador />
+        <Faq />
+        <CtaFinal />
       </main>
       <Footer />
       <script

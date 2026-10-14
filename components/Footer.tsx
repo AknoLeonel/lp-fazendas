@@ -1,14 +1,15 @@
+import Logo from "./Logo";
 import { SITE } from "../lib/site";
 
 // Dados ainda não preenchidos (com "XX") não aparecem no site público.
 const isPlaceholder = (valor: string) => valor.includes("XX");
 
 const navegacao = [
-  { href: "#inicio", label: "Início" },
-  { href: "#aptidoes", label: "Aptidões e Perfil" },
-  { href: "#consultoria", label: "Consultoria Jurídica" },
-  { href: "#vitrine", label: "Vitrine de Fazendas" },
-  { href: "#faq", label: "Dúvidas Frequentes" },
+  { href: "/#aptidoes", label: "Aptidões" },
+  { href: "/fazendas", label: "Fazendas à venda" },
+  { href: "/#auditoria", label: "Auditoria jurídica" },
+  { href: "/#simulador", label: "Simulador" },
+  { href: "/politica-de-privacidade", label: "Política de privacidade" },
 ];
 
 export default function Footer() {
@@ -17,16 +18,14 @@ export default function Footer() {
   const mostrarEndereco = !isPlaceholder(SITE.address.line1);
 
   return (
-    <footer className="bg-forest-950 px-5 pb-28 pt-10 text-sm text-paper/65 md:px-16 md:pb-10 md:pt-14">
+    <footer className="bg-cerrado-950 px-5 pb-28 pt-10 text-sm text-algodao/65 md:px-16 md:pb-10 md:pt-14">
       <div className="mx-auto flex max-w-[1312px] flex-col gap-9">
         <div className="flex flex-wrap justify-between gap-10">
-          <div className="flex max-w-sm flex-col gap-2.5">
-            <p className="font-display text-2xl text-paper md:text-[26px]">
-              {SITE.name} <span className="text-gold">{SITE.suffix}</span>
-            </p>
+          <div className="flex max-w-sm flex-col gap-3">
+            <Logo className="text-algodao" />
             <p className="text-[15px] leading-relaxed">
-              Especialistas em intermediação de fazendas de alto padrão e
-              consultoria jurídica para regularização fundiária.
+              Fazendas de alto potencial com documentação 100% regularizada.
+              Formosa do Rio Preto · BA.
             </p>
             {(mostrarCreci || mostrarCnpj) && (
               <p>
@@ -38,20 +37,20 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Navegação do rodapé" className="flex flex-col gap-2.5 text-[15px]">
-            <strong className="text-paper">Navegação</strong>
+            <strong className="text-algodao">Navegação</strong>
             {navegacao.map((n) => (
-              <a key={n.href} href={n.href} className="transition-colors hover:text-gold-light">
+              <a key={n.href} href={n.href} className="transition-colors hover:text-grao-claro">
                 {n.label}
               </a>
             ))}
           </nav>
 
           <div className="flex flex-col gap-2.5 text-[15px]">
-            <strong className="text-paper">Contato</strong>
-            <a href={`tel:+${SITE.whatsapp}`} className="hover:text-gold-light">
+            <strong className="text-algodao">Contato</strong>
+            <a href={`tel:+${SITE.whatsapp}`} className="hover:text-grao-claro">
               {SITE.phoneDisplay}
             </a>
-            <a href={`mailto:${SITE.email}`} className="hover:text-gold-light">
+            <a href={`mailto:${SITE.email}`} className="hover:text-grao-claro">
               {SITE.email}
             </a>
             {mostrarEndereco && (
@@ -64,7 +63,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="border-t border-forest-800 pt-6 text-[13px]">
+        <p className="border-t border-cerrado-800 pt-6 text-[13px]">
           © {new Date().getFullYear()} {SITE.fullName}. Todos os direitos reservados.
         </p>
       </div>
