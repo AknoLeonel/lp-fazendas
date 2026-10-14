@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "../lib/site";
-import { APTIDOES, FAZENDAS } from "../lib/fazendas";
+import { APTIDOES } from "../lib/fazendas";
+import { lerPublicadas } from "../lib/store";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const fazendas = await lerPublicadas();
   return [
     { url: SITE.url, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE.url}/fazendas`, changeFrequency: "weekly", priority: 0.9 },
@@ -11,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
-    ...FAZENDAS.map((f) => ({
+    ...fazendas.map((f) => ({
       url: `${SITE.url}/fazendas/${f.slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.7,

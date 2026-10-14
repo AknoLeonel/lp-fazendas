@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import MobileCtaBar from "../components/MobileCtaBar";
 import Tracker from "../components/Tracker";
+import EsconderNoAdmin from "../components/EsconderNoAdmin";
 import ConsentGTM from "../components/ConsentGTM";
 import { SITE } from "../lib/site";
 
@@ -54,9 +55,13 @@ export default function RootLayout({
       <body className="antialiased selection:bg-grao selection:text-cerrado-900">
         <ConsentGTM />
         <Tracker />
-        <Header />
+        <EsconderNoAdmin>
+          <Header />
+        </EsconderNoAdmin>
         {children}
-        <MobileCtaBar />
+        <EsconderNoAdmin>
+          <MobileCtaBar />
+        </EsconderNoAdmin>
       </body>
     </html>
   );

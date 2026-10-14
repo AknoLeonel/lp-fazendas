@@ -8,15 +8,17 @@ import FazendaCard from "../../../components/FazendaCard";
 import Footer from "../../../components/Footer";
 import {
   DOCUMENTOS_AUDITADOS,
-  FAZENDAS,
+  aptidaoParaSelect,
+  capa,
+  coordenadaTexto,
   formatHa,
   formatPreco,
-  getFazenda,
 } from "../../../lib/fazendas";
+import { lerPorSlug, lerPublicadas } from "../../../lib/store";
 import { SITE, whatsappLink } from "../../../lib/site";
 
-export function generateStaticParams() {
-  return FAZENDAS.map((f) => ({ slug: f.slug }));
+export async function generateStaticParams() {
+  return (await lerPublicadas()).map((f) => ({ slug: f.slug }));
 }
 
 export async function generateMetadata({
@@ -25,13 +27,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const f = getFazenda(slug);
+  const f = await lerPorSlug(slug);
   if (!f) return {};
   return {
     title: `${f.titulo} em ${f.local} | REALIZA Agro`,
     description: `${f.descricao} Documentação auditada: matrícula, CAR e georreferenciamento.`,
     alternates: { canonical: `/fazendas/${f.slug}` },
-    openGraph: { images: [{ url: f.imagem, alt: f.alt }] },
+    openGraph: { images: [{ url: capa(f).src, alt: capa(f).alt }] },
   };
 }
 
@@ -41,10 +43,10 @@ export default async function FazendaPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const f = getFazenda(slug);
+  const f = await lerPorSlug(slug);
   if (!f) notFound();
 
-  const outras = FAZENDAS.filter((o) => o.slug !== f.slug).slice(0, 3);
+  const outras = (await lerPublicadas()).filter((o) => o.slug !== f.slug).slice(0, 3);
   const mensagem = `Olá, vim pelo site e tenho interesse na ${f.titulo} (${f.local}).`;
 
   const jsonLd = {
@@ -53,7 +55,7 @@ export default async function FazendaPage({
     name: f.titulo,
     description: f.descricao,
     url: `${SITE.url}/fazendas/${f.slug}`,
-    image: `${SITE.url}${f.imagem}`,
+    image: capa(f).src.startsWith("http") ? capa(f).src : `${SITE.url}${capa(f).src}`,
     about: { "@type": "Place", name: f.local },
   };
 
@@ -71,21 +73,21 @@ export default async function FazendaPage({
             <div className="flex min-w-0 flex-1 basis-[560px] flex-col gap-8">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl md:aspect-[16/10]">
                 <Image
-                  src={f.galeria[0].src}
-                  alt={f.galeria[0].alt}
+                  src={capa(f).src}
+                  alt={capa(f).alt}
                   fill
                   priority
                   sizes="(min-width: 1024px) 60vw, 100vw"
                   className="object-cover"
                 />
                 <span className="absolute left-4 top-4 rounded bg-cerrado-900 px-3 py-1.5 font-display text-xs font-semibold tracking-wide text-grao">
-                  {f.coordenada}
+                  {coordenadaTexto(f)}
                 </span>
               </div>
 
-              {f.galeria.length > 1 && (
+              {f.imagens.length > 1 && (
                 <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                  {f.galeria.slice(1).map((g) => (
+                  {f.imagens.slice(1).map((g) => (
                     <li key={g.src} className="relative aspect-[4/3] overflow-hidden rounded-lg">
                       <Image src={g.src} alt={g.alt} fill sizes="25vw" className="object-cover" />
                     </li>
@@ -143,9 +145,7 @@ export default async function FazendaPage({
             <aside className="flex w-full flex-col gap-4 md:flex-1 md:basis-[380px] md:self-start lg:sticky lg:top-6 lg:max-w-[420px]">
               <LeadForm
                 titulo="Quero o dossiê completo desta fazenda"
-                aptidaoInicial={
-                  f.aptidao === "agricultura" ? "Agricultura" : f.aptidao === "pecuaria" ? "Pecuária" : "Compensação ambiental"
-                }
+                aptidaoInicial={aptidaoParaSelect(f.aptidao)}
                 fazenda={f.titulo}
               />
               <a

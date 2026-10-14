@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import PageTopo from "../../components/PageTopo";
 import VitrineFiltro from "../../components/VitrineFiltro";
+import SecaoMapa from "../../components/SecaoMapa";
 import CtaFinal from "../../components/CtaFinal";
 import Footer from "../../components/Footer";
-import { FAZENDAS } from "../../lib/fazendas";
+import { lerPublicadas } from "../../lib/store";
 
 export const metadata: Metadata = {
   title: "Fazendas à venda | REALIZA Agro",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/fazendas" },
 };
 
-export default function FazendasPage() {
+export default async function FazendasPage() {
+  const fazendas = await lerPublicadas();
   return (
     <>
       <main>
@@ -23,9 +25,10 @@ export default function FazendasPage() {
         </PageTopo>
         <section className="px-5 py-10 md:px-16 md:py-16">
           <div className="mx-auto max-w-[1312px]">
-            <VitrineFiltro fazendas={FAZENDAS} />
+            <VitrineFiltro fazendas={fazendas} />
           </div>
         </section>
+        <SecaoMapa compacta />
         <CtaFinal />
       </main>
       <Footer />

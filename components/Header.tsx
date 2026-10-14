@@ -6,6 +6,7 @@ const links = [
   { href: "/#aptidoes", label: "Aptidões" },
   { href: "/fazendas", label: "Fazendas" },
   { href: "/#auditoria", label: "Auditoria" },
+  { href: "/#mapa", label: "Mapa" },
   { href: "/#simulador", label: "Simulador" },
   { href: "/#oeste", label: "Oeste Baiano" },
 ];
@@ -20,7 +21,7 @@ export default function Header() {
 
         <nav
           aria-label="Navegação principal"
-          className="hidden items-center gap-8 text-[15px] font-medium text-algodao/90 lg:flex"
+          className="hidden items-center gap-7 text-[15px] font-medium text-algodao/90 xl:flex"
         >
           {links.map((l) => (
             <a key={l.href} href={l.href} className="transition-colors hover:text-grao-claro">
@@ -37,7 +38,7 @@ export default function Header() {
         </nav>
 
         {/* Menu mobile sem JavaScript */}
-        <details className="group relative lg:hidden">
+        <details className="group relative xl:hidden">
           <summary
             aria-label="Abrir menu"
             className="flex size-11 cursor-pointer items-center justify-center rounded-lg border border-algodao/30"
