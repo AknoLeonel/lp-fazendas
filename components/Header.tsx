@@ -1,38 +1,48 @@
-import { SITE, whatsappLink } from "../lib/site";
+import { SITE } from "../lib/site";
 
-const mensagemHeader = "Olá, vim pelo site e gostaria de falar com um especialista.";
+const links = [
+  { href: "#aptidoes", label: "Aptidões" },
+  { href: "#consultoria", label: "Consultoria" },
+  { href: "#vitrine", label: "Vitrine" },
+  { href: "#faq", label: "Dúvidas" },
+];
 
 export default function Header() {
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-slate-200/50 bg-white/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-20 items-center justify-between gap-3 px-4 md:px-6">
-        {/* Logo */}
-        <a href="#" aria-label={`${SITE.fullName} - início`} className="flex items-center gap-2">
-          <span className="text-xl font-black tracking-tighter text-slate-900 sm:text-2xl">
-            {SITE.name} <span className="text-green-600">{SITE.suffix}</span>
-          </span>
+    <header className="absolute left-0 top-0 z-40 w-full text-paper">
+      <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between gap-3 px-5 md:h-24 md:px-16">
+        <a
+          href="#inicio"
+          aria-label={`${SITE.fullName} - início`}
+          className="font-display text-xl tracking-wider md:text-[26px]"
+        >
+          {SITE.name} <span className="text-gold">{SITE.suffix}</span>
         </a>
 
-        {/* Navegação Desktop */}
         <nav
           aria-label="Navegação principal"
-          className="hidden text-sm font-medium text-slate-600 md:flex md:items-center md:gap-8"
+          className="hidden items-center gap-9 text-[15px] font-medium text-paper/90 md:flex"
         >
-          <a href="#aptidoes" className="transition-colors hover:text-green-600">Aptidões</a>
-          <a href="#consultoria" className="transition-colors hover:text-green-600">Consultoria</a>
-          <a href="#vitrine" className="transition-colors hover:text-green-600">Vitrine</a>
-          <a href="#faq" className="transition-colors hover:text-green-600">Dúvidas</a>
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="transition-colors hover:text-gold-light">
+              {l.label}
+            </a>
+          ))}
+          <a
+            href="#contato"
+            data-track="header"
+            className="rounded-full bg-gold px-5 py-3 font-bold text-forest-900 transition-colors hover:bg-gold-light"
+          >
+            Falar com especialista
+          </a>
         </nav>
 
-        {/* CTA */}
         <a
-          href={whatsappLink(mensagemHeader)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center justify-center rounded-full bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 sm:px-5"
+          href="#contato"
+          data-track="header_mobile"
+          className="inline-flex min-h-11 items-center rounded-full bg-gold px-5 text-sm font-bold text-forest-900 md:hidden"
         >
-          <span className="hidden sm:inline">Falar com Especialista</span>
-          <span className="sm:hidden">Falar agora</span>
+          Falar agora
         </a>
       </div>
     </header>

@@ -26,107 +26,54 @@ export default function Consultoria() {
     <section
       id="consultoria"
       aria-labelledby="consultoria-titulo"
-      className="relative scroll-mt-20 overflow-hidden bg-slate-900 py-16 lg:py-28"
+      className="mt-8 scroll-mt-4 bg-forest-900 px-5 py-14 text-paper md:mt-16 md:px-16 md:py-26"
     >
-      {/* Elementos de design decorativos */}
-      <div
-        aria-hidden="true"
-        className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-green-500/10 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-slate-500/10 blur-3xl"
-      />
-
-      <div className="container relative z-10 mx-auto px-4 md:px-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-8">
-          {/* Coluna da Esquerda: Textos e CTA */}
-          <div className="max-w-xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/50 px-4 py-1.5 text-sm font-medium text-green-400">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-                aria-hidden="true"
-              >
-                <path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2" />
-                <path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" />
-              </svg>
-              Diferencial Competitivo
-            </div>
-
-            <h2
-              id="consultoria-titulo"
-              className="mb-6 text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
-            >
-              Consultoria Jurídica em{" "}
-              <span className="text-green-500">Regularização Fundiária</span>
-            </h2>
-
-            <p className="mb-8 text-lg text-slate-400">
-              Não vendemos apenas terras, entregamos segurança. Nossa equipe
-              jurídica especializada no agronegócio realiza uma blindagem
-              completa no seu investimento, eliminando riscos documentais e
-              ambientais.
-            </p>
-
-            <a
-              href={whatsappLink(mensagemJuridico)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-green-500 bg-transparent px-6 py-3 font-semibold text-green-500 transition-colors hover:bg-green-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-            >
-              Falar com o Setor Jurídico
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-
-          {/* Coluna da Direita: Lista de Benefícios */}
-          <ul className="flex flex-col gap-4 lg:gap-6 lg:pl-10">
-            {beneficios.map((item) => (
-              <li
-                key={item.titulo}
-                className="flex items-start gap-4 rounded-2xl border border-slate-700/50 bg-slate-800/50 p-5 md:p-6"
-              >
-                <div className="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-700 text-green-400">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="mb-2 text-xl font-bold text-slate-100">
-                    {item.titulo}
-                  </h3>
-                  <p className="leading-relaxed text-slate-400">
-                    {item.descricao}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
+      <div className="mx-auto flex max-w-[1312px] flex-wrap gap-6 md:gap-16">
+        <div className="flex flex-1 basis-[440px] flex-col gap-5 self-start md:gap-6">
+          <span className="text-xs font-bold uppercase tracking-[0.12em] text-gold md:text-[13px]">
+            Diferencial competitivo
+          </span>
+          <h2
+            id="consultoria-titulo"
+            className="font-display text-[32px] font-normal leading-[1.08] tracking-tight md:text-[52px]"
+          >
+            Consultoria jurídica em{" "}
+            <em className="text-gold">regularização fundiária</em>
+          </h2>
+          <p className="text-base leading-relaxed text-paper/70 md:text-lg">
+            Não vendemos apenas terras, entregamos segurança. Nossa equipe
+            jurídica especializada no agronegócio realiza uma blindagem completa
+            no seu investimento, eliminando riscos documentais e ambientais.
+          </p>
+          <a
+            href={whatsappLink(mensagemJuridico)}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="consultoria"
+            className="flex min-h-13 items-center justify-center rounded-full border-[1.5px] border-gold px-7 font-bold text-gold-light transition-colors hover:bg-gold hover:text-forest-900 md:self-start"
+          >
+            Falar com o setor jurídico →
+          </a>
         </div>
+
+        <ol className="flex flex-1 basis-[480px] flex-col gap-4">
+          {beneficios.map((b, i) => (
+            <li
+              key={b.titulo}
+              className="flex gap-4 rounded-xl border border-forest-800 bg-paper/[0.03] p-5 md:gap-5 md:p-7"
+            >
+              <span className="font-display text-3xl leading-none text-gold md:text-[40px]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="flex flex-col gap-1.5 md:gap-2">
+                <h3 className="text-lg font-semibold md:text-[21px]">{b.titulo}</h3>
+                <p className="text-[15px] leading-relaxed text-paper/65 md:text-base">
+                  {b.descricao}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
