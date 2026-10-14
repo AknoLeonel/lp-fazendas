@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     nome,
     whatsapp,
     aptidao: APTIDOES.has(aptidao) ? aptidao : "Não informado",
+    fazenda: clean(body.fazenda, 120) || undefined,
     atribuicao:
       typeof body.atribuicao === "object" && body.atribuicao !== null
         ? body.atribuicao

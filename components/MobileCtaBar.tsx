@@ -7,13 +7,13 @@ export default function MobileCtaBar() {
   return (
     <>
       <div
-        className="fixed inset-x-0 bottom-0 z-50 flex gap-2.5 border-t border-forest-800 bg-forest-950/95 px-4 pt-2.5 backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 flex gap-2.5 border-t border-cerrado-800 bg-cerrado-950/95 px-4 pt-2.5 backdrop-blur md:hidden"
         style={{ paddingBottom: "max(0.625rem, env(safe-area-inset-bottom))" }}
       >
         <a
           href="#contato"
           data-track="barra_fixa"
-          className="flex min-h-12 flex-1 items-center justify-center rounded-full bg-gold font-bold text-forest-900"
+          className="flex min-h-12 flex-1 items-center justify-center rounded-lg bg-grao font-bold text-cerrado-900"
         >
           Receber fazendas
         </a>
@@ -23,7 +23,7 @@ export default function MobileCtaBar() {
           rel="noopener noreferrer"
           aria-label="Falar no WhatsApp"
           data-track="barra_fixa_whatsapp"
-          className="flex size-12 items-center justify-center rounded-full bg-[#25a559]"
+          className="flex size-12 items-center justify-center rounded-lg bg-[#25a559]"
         >
           <WhatsAppIcon className="size-6" />
         </a>
