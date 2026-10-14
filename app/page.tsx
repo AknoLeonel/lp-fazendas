@@ -4,6 +4,7 @@ import Aptidoes from "../components/Aptidoes";
 import Auditoria from "../components/Auditoria";
 import OesteBaiano from "../components/OesteBaiano";
 import Vitrine from "../components/Vitrine";
+import SecaoMapa from "../components/SecaoMapa";
 import Simulador from "../components/Simulador";
 import Faq, { FAQS } from "../components/Faq";
 import CtaFinal from "../components/CtaFinal";
@@ -44,6 +45,7 @@ export default function Home() {
         <Auditoria />
         <OesteBaiano />
         <Vitrine />
+        <SecaoMapa />
         <Simulador />
         <Faq />
         <CtaFinal />

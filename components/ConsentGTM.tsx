@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GTM_ID } from "../lib/site";
 
@@ -33,6 +34,7 @@ const escolhaNoServidor = (): Escolha | "carregando" => "carregando";
  */
 export default function ConsentGTM() {
   const escolha = useSyncExternalStore(subscribe, lerEscolha, escolhaNoServidor);
+  const noAdmin = usePathname()?.startsWith("/admin");
 
   function decidir(valor: "aceito" | "recusado") {
     try {
@@ -46,7 +48,7 @@ export default function ConsentGTM() {
   return (
     <>
       {GTM_ID && escolha === "aceito" && <GoogleTagManager gtmId={GTM_ID} />}
-      {escolha === "pendente" && (
+      {escolha === "pendente" && !noAdmin && (
         <div
           role="dialog"
           aria-label="Aviso de cookies"

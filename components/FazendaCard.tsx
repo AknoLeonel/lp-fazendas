@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { formatHa, formatPreco, type Fazenda } from "../lib/fazendas";
+import { capa, coordenadaTexto, formatHa, formatPreco, type Fazenda } from "../lib/fazendas";
 
 const selos = ["Matrícula", "CAR", "Georreferenciamento"];
 
@@ -8,14 +8,14 @@ export default function FazendaCard({ fazenda: f }: { fazenda: Fazenda }) {
     <article className="flex flex-col overflow-hidden rounded-xl border border-linha bg-algodao-claro">
       <a href={`/fazendas/${f.slug}`} aria-label={`Ver detalhes de ${f.titulo}`} className="relative block h-[200px] md:h-[250px]">
         <Image
-          src={f.imagem}
-          alt={f.alt}
+          src={capa(f).src}
+          alt={capa(f).alt}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="object-cover"
         />
         <span className="absolute left-3 top-3 rounded bg-cerrado-900 px-2.5 py-1.5 font-display text-[11px] font-semibold tracking-wide text-grao md:left-3.5 md:top-3.5 md:text-xs">
-          {f.coordenada}
+          {coordenadaTexto(f)}
         </span>
       </a>
 

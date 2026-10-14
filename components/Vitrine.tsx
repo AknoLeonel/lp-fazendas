@@ -1,5 +1,6 @@
 import VitrineFiltro from "./VitrineFiltro";
-import { FAZENDAS, type Aptidao } from "../lib/fazendas";
+import { lerPublicadas } from "../lib/store";
+import type { Aptidao } from "../lib/fazendas";
 import { whatsappLink } from "../lib/site";
 
 const mensagemPortfolio =
@@ -7,7 +8,7 @@ const mensagemPortfolio =
 const mensagemChacaras =
   "Olá, vim pelo site e gostaria de ver as opções de chácaras e sítios.";
 
-export default function Vitrine({
+export default async function Vitrine({
   aptidao,
   titulo = "Seleção restrita, auditada pelo jurídico",
   exibirChacaras = true,
@@ -16,7 +17,8 @@ export default function Vitrine({
   titulo?: string;
   exibirChacaras?: boolean;
 }) {
-  const fazendas = aptidao ? FAZENDAS.filter((f) => f.aptidao === aptidao) : FAZENDAS;
+  const todas = await lerPublicadas();
+  const fazendas = aptidao ? todas.filter((f) => f.aptidao === aptidao) : todas;
 
   return (
     <section
