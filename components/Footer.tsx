@@ -1,9 +1,15 @@
-import { SITE, whatsappLink } from "../lib/site";
+import { SITE } from "../lib/site";
 
 // Dados ainda não preenchidos (com "XX") não aparecem no site público.
 const isPlaceholder = (valor: string) => valor.includes("XX");
 
-const mensagemRodape = "Olá, vim pelo site e gostaria de falar com um especialista.";
+const navegacao = [
+  { href: "#inicio", label: "Início" },
+  { href: "#aptidoes", label: "Aptidões e Perfil" },
+  { href: "#consultoria", label: "Consultoria Jurídica" },
+  { href: "#vitrine", label: "Vitrine de Fazendas" },
+  { href: "#faq", label: "Dúvidas Frequentes" },
+];
 
 export default function Footer() {
   const mostrarCreci = !isPlaceholder(SITE.creci);
@@ -11,97 +17,56 @@ export default function Footer() {
   const mostrarEndereco = !isPlaceholder(SITE.address.line1);
 
   return (
-    <footer className="bg-slate-950 pb-8 pt-16 text-slate-300">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:gap-8">
-          {/* Coluna 1: Marca e Credenciais */}
-          <div>
-            <p className="mb-4 text-2xl font-bold text-white">
-              {SITE.name} <span className="text-green-500">{SITE.suffix}</span>
+    <footer className="bg-forest-950 px-5 pb-28 pt-10 text-sm text-paper/65 md:px-16 md:pb-10 md:pt-14">
+      <div className="mx-auto flex max-w-[1312px] flex-col gap-9">
+        <div className="flex flex-wrap justify-between gap-10">
+          <div className="flex max-w-sm flex-col gap-2.5">
+            <p className="font-display text-2xl text-paper md:text-[26px]">
+              {SITE.name} <span className="text-gold">{SITE.suffix}</span>
             </p>
-            <p className="mb-6 pr-4 text-sm leading-relaxed text-slate-400">
+            <p className="text-[15px] leading-relaxed">
               Especialistas em intermediação de fazendas de alto padrão e
-              consultoria jurídica para regularização fundiária. Segurança e
-              rentabilidade para o seu investimento rural.
+              consultoria jurídica para regularização fundiária.
             </p>
             {(mostrarCreci || mostrarCnpj) && (
-              <div className="space-y-1 text-sm font-medium text-slate-500">
-                {mostrarCreci && <p>CRECI: {SITE.creci}</p>}
-                {mostrarCnpj && <p>CNPJ: {SITE.cnpj}</p>}
-              </div>
+              <p>
+                {mostrarCreci && <>CRECI: {SITE.creci}</>}
+                {mostrarCreci && mostrarCnpj && " · "}
+                {mostrarCnpj && <>CNPJ: {SITE.cnpj}</>}
+              </p>
             )}
           </div>
 
-          {/* Coluna 2: Navegação Interna */}
-          <nav aria-label="Navegação do rodapé">
-            <h4 className="mb-6 text-lg font-semibold text-white">Navegação</h4>
-            <ul className="space-y-3 text-sm">
-              <li><a href="#" className="transition-colors hover:text-green-500">Início</a></li>
-              <li><a href="#aptidoes" className="transition-colors hover:text-green-500">Aptidões e Perfil</a></li>
-              <li><a href="#consultoria" className="transition-colors hover:text-green-500">Consultoria Jurídica</a></li>
-              <li><a href="#vitrine" className="transition-colors hover:text-green-500">Vitrine de Fazendas</a></li>
-              <li><a href="#faq" className="transition-colors hover:text-green-500">Dúvidas Frequentes</a></li>
-            </ul>
+          <nav aria-label="Navegação do rodapé" className="flex flex-col gap-2.5 text-[15px]">
+            <strong className="text-paper">Navegação</strong>
+            {navegacao.map((n) => (
+              <a key={n.href} href={n.href} className="transition-colors hover:text-gold-light">
+                {n.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Coluna 3: Contato */}
-          <div>
-            <h4 className="mb-6 text-lg font-semibold text-white">
-              {mostrarEndereco ? "Contato & Endereço" : "Contato"}
-            </h4>
-            <ul className="space-y-4 text-sm">
-              {mostrarEndereco && (
-                <li className="flex items-start gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="shrink-0 text-green-500" viewBox="0 0 256 256" aria-hidden="true"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,112a24,24,0,1,1,24-24A24,24,0,0,1,128,128Z" /></svg>
-                  <address className="not-italic">
-                    {SITE.address.line1}
-                    <br />
-                    {SITE.address.line2}
-                  </address>
-                </li>
-              )}
-
-              <li className="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="shrink-0 text-green-500" viewBox="0 0 256 256" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.41-38.83-38.83l20.78-24.34a8.12,8.12,0,0,0,.56-.75,16,16,0,0,0,1.4-15.17l-.06-.13L97.63,33.63a16,16,0,0,0-16.82-9.26L33.7,32.8A16.05,16.05,0,0,0,20,48.49C21.8,119.78,80.77,198.81,192.68,235.25a27.18,27.18,0,0,0,8.37,1.3,15.65,15.65,0,0,0,12.35-6l29.41-38A16,16,0,0,0,222.37,158.46Z" /></svg>
-                <a
-                  href={whatsappLink(mensagemRodape)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-green-500"
-                >
-                  {SITE.phoneDisplay}
-                </a>
-              </li>
-
-              <li className="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="shrink-0 text-green-500" viewBox="0 0 256 256" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a16,16,0,0,0,21.82,0L226.54,74.1C229.41,71.49,232,68.7,232,65.61V192Z" /></svg>
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="break-all transition-colors hover:text-green-500"
-                >
-                  {SITE.email}
-                </a>
-              </li>
-            </ul>
+          <div className="flex flex-col gap-2.5 text-[15px]">
+            <strong className="text-paper">Contato</strong>
+            <a href={`tel:+${SITE.whatsapp}`} className="hover:text-gold-light">
+              {SITE.phoneDisplay}
+            </a>
+            <a href={`mailto:${SITE.email}`} className="hover:text-gold-light">
+              {SITE.email}
+            </a>
+            {mostrarEndereco && (
+              <address className="not-italic">
+                {SITE.address.line1}
+                <br />
+                {SITE.address.line2}
+              </address>
+            )}
           </div>
         </div>
 
-        {/* Barra Inferior */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 text-xs text-slate-500 md:flex-row">
-          <p>
-            © {new Date().getFullYear()} {SITE.fullName}. Todos os direitos reservados.
-          </p>
-
-          <div className="flex gap-6">
-            {/* TODO: apontar para /privacidade e /termos quando as páginas existirem */}
-            <a href="#" className="underline underline-offset-2 transition-colors hover:text-slate-300">
-              Política de Privacidade
-            </a>
-            <a href="#" className="underline underline-offset-2 transition-colors hover:text-slate-300">
-              Termos de Uso
-            </a>
-          </div>
-        </div>
+        <p className="border-t border-forest-800 pt-6 text-[13px]">
+          © {new Date().getFullYear()} {SITE.fullName}. Todos os direitos reservados.
+        </p>
       </div>
     </footer>
   );

@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from "react";
 import { SITE, whatsappLink } from "../lib/site";
 
 const faqs = [
@@ -31,159 +28,90 @@ const mensagemFaq =
   "Olá, vim pelo site e fiquei com uma dúvida sobre as fazendas e a documentação. Podem me ajudar?";
 
 export default function FaqAutoridade() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   return (
-    <section
-      id="faq"
-      aria-labelledby="autoridade-titulo"
-      className="scroll-mt-20 bg-white py-16 lg:py-28"
-    >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Coluna de Autoridade */}
-          <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-700">
-              <span
-                aria-hidden="true"
-                className="flex h-2 w-2 rounded-full bg-green-500"
-              />
-              Transparência e Segurança
-            </div>
-
+    <>
+      <section
+        id="faq"
+        aria-labelledby="autoridade-titulo"
+        className="scroll-mt-4 px-5 pb-14 pt-10 md:px-16 md:py-26"
+      >
+        <div className="mx-auto flex max-w-[1312px] flex-wrap gap-10 md:gap-[72px]">
+          <div className="flex flex-1 basis-[420px] flex-col gap-5 self-start md:gap-6">
+            <span className="text-xs font-bold uppercase tracking-[0.12em] text-gold-dark md:text-[13px]">
+              Transparência e segurança
+            </span>
             <h2
               id="autoridade-titulo"
-              className="mb-6 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl"
+              className="font-display text-[32px] font-normal leading-[1.08] tracking-tight md:text-5xl"
             >
               Por que investir com a{" "}
-              <span className="text-green-600">{SITE.fullName}?</span>
+              <em className="text-forest-700">{SITE.fullName}?</em>
             </h2>
-
-            <p className="mb-6 text-lg leading-relaxed text-slate-600">
-              O mercado imobiliário rural exige um nível de precisão técnica
-              que corretores tradicionais não oferecem. Nós unimos a
-              inteligência na captação das melhores terras produtoras do país
-              com uma blindagem jurídica implacável.
+            <p className="text-base leading-relaxed text-ink-soft md:text-lg">
+              O mercado imobiliário rural exige um nível de precisão técnica que
+              corretores tradicionais não oferecem. Unimos a inteligência na
+              captação das melhores terras produtoras do país com uma blindagem
+              jurídica implacável.
             </p>
-            <p className="mb-8 text-lg leading-relaxed text-slate-600">
-              Do georreferenciamento à lavratura da escritura, você conta com
-              especialistas em regularização fundiária protegendo o seu capital
-              a cada etapa da negociação.
+            <p className="text-base leading-relaxed text-ink-soft md:text-lg">
+              Do georreferenciamento à lavratura da escritura, especialistas em
+              regularização fundiária protegem o seu capital a cada etapa.
             </p>
-
-            {/* Indicadores de Confiança */}
-            <dl className="flex flex-wrap gap-6 border-t border-slate-100 pt-8">
+            <dl className="flex gap-10 border-t border-line pt-6 md:pt-7">
               <div>
-                <dt className="sr-only">Áreas auditadas</dt>
-                <dd className="text-3xl font-black text-slate-900">100%</dd>
-                <p className="text-sm font-medium text-slate-500" aria-hidden="true">
-                  Áreas Auditadas
-                </p>
+                <dd className="font-display text-4xl md:text-[44px]">100%</dd>
+                <dt className="text-sm text-ink-soft">Áreas auditadas</dt>
               </div>
-              <div className="w-px bg-slate-200" aria-hidden="true" />
               <div>
-                <dt className="sr-only">Confidencialidade</dt>
-                <dd className="text-3xl font-black text-slate-900">Sigilo</dd>
-                <p className="text-sm font-medium text-slate-500" aria-hidden="true">
-                  Absoluto
-                </p>
+                <dd className="font-display text-4xl md:text-[44px]">Sigilo</dd>
+                <dt className="text-sm text-ink-soft">Absoluto</dt>
               </div>
             </dl>
           </div>
 
-          {/* Coluna de FAQ (Acordeão) */}
-          <div className="flex flex-col justify-center">
-            <h3 className="mb-6 text-2xl font-bold text-slate-900 lg:mb-8">
-              Dúvidas Frequentes
+          <div className="flex flex-1 basis-[520px] flex-col gap-3">
+            <h3 className="mb-1 text-xl font-semibold md:text-[22px]">
+              Dúvidas frequentes
             </h3>
-
-            <div className="space-y-3 lg:space-y-4">
-              {faqs.map((faq, index) => {
-                const isOpen = openIndex === index;
-                const buttonId = `faq-botao-${index}`;
-                const panelId = `faq-painel-${index}`;
-
-                return (
-                  <div
-                    key={faq.pergunta}
-                    className={`overflow-hidden rounded-2xl border transition-colors duration-300 ${
-                      isOpen
-                        ? "border-green-500 bg-green-50/30"
-                        : "border-slate-200 bg-white hover:border-slate-300"
-                    }`}
-                  >
-                    <h4>
-                      <button
-                        id={buttonId}
-                        type="button"
-                        aria-expanded={isOpen}
-                        aria-controls={panelId}
-                        onClick={() => setOpenIndex(isOpen ? null : index)}
-                        className="flex w-full items-center justify-between p-5 text-left font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green-500 md:p-6"
-                      >
-                        <span className="pr-4 text-base md:text-lg">
-                          {faq.pergunta}
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className={`shrink-0 transition-transform duration-300 ${
-                            isOpen ? "rotate-180 text-green-600" : "text-slate-400"
-                          }`}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </span>
-                      </button>
-                    </h4>
-
-                    <div
-                      id={panelId}
-                      role="region"
-                      aria-labelledby={buttonId}
-                      aria-hidden={!isOpen}
-                      className={`grid transition-all duration-300 ease-in-out ${
-                        isOpen
-                          ? "grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
-                      }`}
-                    >
-                      <div className="overflow-hidden">
-                        <p className="px-5 pb-5 leading-relaxed text-slate-600 md:px-6 md:pb-6">
-                          {faq.resposta}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* CTA após as dúvidas */}
-            <div className="mt-8 flex flex-col items-start gap-3 rounded-2xl bg-slate-50 p-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="font-medium text-slate-700">
-                Ficou com alguma dúvida? Fale direto com um especialista.
-              </p>
-              <a
-                href={whatsappLink(mensagemFaq)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex shrink-0 items-center justify-center rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+            {faqs.map((faq) => (
+              <details
+                key={faq.pergunta}
+                className="rounded-xl border border-line bg-paper-soft"
               >
-                Chamar no WhatsApp
-              </a>
-            </div>
+                <summary className="flex min-h-14 cursor-pointer items-center justify-between gap-4 p-[18px] text-base font-semibold leading-snug md:p-6 md:text-[17px]">
+                  <span>{faq.pergunta}</span>
+                  <span
+                    aria-hidden="true"
+                    className="faq-plus text-[28px] leading-none text-gold-dark transition-transform duration-200"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="px-[18px] pb-[18px] text-[15px] leading-relaxed text-ink-soft md:px-6 md:pb-6 md:text-base">
+                  {faq.resposta}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="bg-forest-700 px-5 py-14 text-paper md:px-16 md:py-20">
+        <div className="mx-auto flex max-w-[1312px] flex-wrap items-center justify-between gap-8">
+          <h2 className="max-w-[640px] font-display text-[30px] font-normal leading-[1.1] md:text-[44px]">
+            Ficou com alguma dúvida? Fale direto com um especialista.
+          </h2>
+          <a
+            href={whatsappLink(mensagemFaq)}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="faq_final"
+            className="flex min-h-14 w-full items-center justify-center rounded-full bg-gold px-8 text-[17px] font-bold text-forest-900 transition-colors hover:bg-gold-light md:w-auto"
+          >
+            Chamar no WhatsApp
+          </a>
+        </div>
+      </section>
+    </>
   );
 }
